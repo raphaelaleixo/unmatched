@@ -5,24 +5,26 @@
         v-if="game.guess && nextPlayer !== player.index"
         class="primary--text text-center mt-2"
       >
-        {{ players[nextPlayer].name }} needs to validate
-        {{ players[game.answering].name }}'s guess:
+        {{ players[nextPlayer].name }} {{ t("needs to validate") }}
+        {{ players[game.answering].name }}{{ t("'s guess") }}:
       </h3>
       <h3
         v-else-if="game.guess && nextPlayer === player.index"
         class="primary--text text-center mt-2"
       >
-        You need to validate {{ players[game.answering].name }}'s guess:
+        {{ t("You need to validate") }} {{ players[game.answering].name
+        }}{{ t("'s guess") }}:
       </h3>
       <h3 v-else class="display-1 base--text text-center">
-        Wait for {{ players[game.answering].name }}'s guess!
+        {{ t("Wait for") }} {{ players[game.answering].name
+        }}{{ t("'s guess!") }}
       </h3>
       <div v-if="game.guess">
         <h2 class="display-2 base--text text-center">
           {{ game.guess }}
         </h2>
         <div class="text-center white--text my-2">
-          The word to guess was "{{ game.words[game.round] }}"
+          {{ t("The word to guess was") }} "{{ game.words[game.round] }}"
         </div>
       </div>
       <div class="d-flex justify-center">
@@ -73,18 +75,12 @@ export default {
   },
   locales: {
     pt_br: {
-      "the murderer": "o assassino",
-      "a detective": "um detetive",
-      "Your are": "Você é",
-      close: "fechar",
-      Role: "Papel",
-      "Pass turn": "Passar",
-      Solve: "Solucionar",
-      "Solve the crime": "Solucione o crime",
-      "Who is the murderer?": "Quem é o assassino?",
-      "Select the mean of murder:": "Selecione a causa de morte",
-      "Select the key evidence:": "Selecione a evidência principal",
-      "Send guess": "Mandar palpite"
+      "needs to validate": "precisa validar a resposta que",
+      "'s guess": " enviou",
+      "'s guess!": " enviará",
+      "You need to validate": "Você precisa validar a resposta que",
+      "Wait for": "Espere pela resposta que",
+      "The word to guess was": "A palavra para advinhar era"
     }
   },
   computed: {
@@ -113,9 +109,7 @@ export default {
       await this.$store.dispatch("checkValidAnswer", {
         game: this.game.gamekey,
         isValid,
-        message: isValid
-          ? "Word was guessed right!"
-          : "The word was not guessed!"
+        message: isValid ? "right" : "wrong"
       });
     }
   }

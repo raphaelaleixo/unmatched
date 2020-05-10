@@ -87,6 +87,7 @@ export default {
     }
   },
   mounted() {
+    this.$translate.setLang(this.$route.query.lang);
     if (this.$route.query.room) {
       this.gameId = this.$route.query.room;
     }

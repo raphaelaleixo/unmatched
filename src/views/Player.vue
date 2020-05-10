@@ -1,5 +1,5 @@
 <template>
-  <Start-Game v-if="!game || !game.started" />
+  <Start-Game v-if="game && !game.started" :game="game" />
   <v-container
     class="player"
     style="height:100%"
@@ -31,7 +31,7 @@
         </div>
         <div class="d-flex flex-wrap justify-center">
           <div class="white--text player-name">
-            {{ player.name }} - Game
+            {{ player.name }} - {{ t("Game") }}
             <strong class="text-uppercase">{{ game.gameId }}</strong>
           </div>
           <div class="rating">
@@ -67,9 +67,9 @@
       top
       :timeout="3000"
     >
-      <strong>{{ game.message }}</strong>
+      <strong>{{ message }}</strong>
       <v-btn class="black--text" text @click="snackbar = false">
-        Close
+        {{ t("Close") }}
       </v-btn>
     </v-snackbar>
   </v-container>
@@ -89,7 +89,15 @@ export default {
     pt_br: {
       "You are in room": "Você está na sala",
       "It's ": "É a vez do",
-      "Waiting for the game start.": "Esperando o jogo começar."
+      "'s turn to answer!": " responder!",
+      "It's your turn to answer": "É sua vez de responder",
+      Game: "Jogo",
+      "Well done! You got last word right!":
+        "Parabéns! Vocês acertaram a última palavra!",
+      "Bummer! Your last word was wrong!":
+        "Droga! Vocês erraram a última palavra!",
+      "Ops! You skipped last word!": "Ops! Vocês pularam a última palavra",
+      Close: "Fechar"
     }
   },
   data: () => ({
@@ -122,6 +130,15 @@ export default {
             "'s turn to answer!"
           )}`
         : this.t("It's your turn to answer");
+    },
+    message() {
+      if (this.game.message === "right") {
+        return this.t("Well done! You got last word right!");
+      } else if (this.game.message === "wrong") {
+        return this.t("Bummer! Your last word was wrong!");
+      } else if (this.game.message === "pass") {
+        return this.t("Ops! You skipped last word!");
+      } else return false;
     }
   },
   methods: {},
@@ -134,7 +151,6 @@ export default {
   },
   watch: {
     game(newRound, oldRound) {
-      console.log(oldRound, newRound);
       if (oldRound && newRound.round !== oldRound.round) {
         this.snackbar = true;
       }

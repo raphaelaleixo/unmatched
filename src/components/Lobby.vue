@@ -81,7 +81,7 @@
         :value="location"
       ></qrcode>
       <v-btn dark text color="primary" block @click="overlay = false">
-        close
+        {{ t("Close") }}
       </v-btn>
     </v-overlay>
   </v-container>
@@ -119,6 +119,7 @@ export default {
   locales: {
     pt_br: {
       "Lobby for room": "Lobby para a sala",
+      "Your nickname": "Seu apelido",
       "Waiting for players": "Esperando pelos jogadores",
       "No players joined yet.": "Nenhum jogador entrou ainda.",
       "player joined.": "jogador entrou.",
@@ -126,8 +127,10 @@ export default {
       "URL Copied": "URL Copiada",
       "Enter your nickname:": "Escreva seu apelido",
       Close: "Fechar",
+      "Show QR Code": "Mostrar QR Ccode",
       "Copy game url": "Copiar url do jogo ",
       "Join game": "Entrar em um jogo",
+      "Enter game": "Entrar no jogo",
       "Start game": "Começar jogo"
     }
   },
@@ -144,7 +147,7 @@ export default {
       return this.$store.state.game;
     },
     location() {
-      return `${window.location.origin}/join?room=${this.game.gameId}`;
+      return `${window.location.origin}/join?room=${this.game.gameId}&lang=${this.game.lang}`;
     },
     players() {
       if (!this.game || !this.game.players) return false;
@@ -206,7 +209,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 canvas {
-  max-width: 100%;
+  max-width: 20em;
+  background: #fff;
+  padding: 2em;
 }
 .lobby {
   .display-1 {

@@ -13,8 +13,9 @@
         "
         class="primary--text text-center mt-2 mb-6"
       >
-        {{ players[nextPlayer].name }} needs to validate the clues. Only
-        <strong>different</strong> clues are valid.
+        {{ players[nextPlayer].name }}
+        {{ t("needs to validate the clues. Only") }}
+        <strong> {{ t("different") }} </strong> {{ t("clues are valid") }}.
       </h3>
       <h3
         v-else-if="
@@ -23,11 +24,15 @@
         "
         class="primary--text text-center mt-2 mb-6"
       >
-        You need to validate the clues. Tap on any clues that are repeated.
+        {{
+          t(
+            "You need to validate the clues. Tap on any clues that are repeated."
+          )
+        }}
       </h3>
-      <h3 v-else class="display-1 base--text text-center">
-        Clue sent! Wait for other players.
-      </h3>
+      <h2 v-else class="display-1 base--text text-center">
+        {{ t("Wait for other players' clues") }}
+      </h2>
       <v-card v-if="clues.length === game.players.length - 1" class="mt-4">
         <v-list>
           <v-list-item
@@ -55,7 +60,7 @@
         "
         rounded
         x-large
-        >Send valid clues</v-btn
+        >{{ t("Send valid clues") }}</v-btn
       >
     </v-col>
     <v-progress-linear
@@ -85,12 +90,14 @@ export default {
   },
   locales: {
     pt_br: {
-      "the murderer": "o assassino",
-      "a detective": "um detetive",
-      "Your are": "Você é",
-      close: "fechar",
-      Role: "Papel",
-      "Pass turn": "Passar",
+      "needs to validate the clues. Only":
+        "precisa validar as dicas. Apenas dicas",
+      different: "diferentes",
+      "clues are valid": "são válidas",
+      "You need to validate the clues. Tap on any clues that are repeated.":
+        "Você precisa validar as dicas. Toque em todas as palavras que são repetidas.",
+      "Send valid clues": "Enviar dicas válidas",
+      "Wait for other players' clues": "Espere pelas outras dicas",
       Solve: "Solucionar",
       "Solve the crime": "Solucione o crime",
       "Who is the murderer?": "Quem é o assassino?",
@@ -101,7 +108,7 @@ export default {
   },
   computed: {
     clues() {
-      return this.game.clues.filter(item => item !== false);
+      return this.game.clues && this.game.clues.filter(item => item !== false);
     },
     players() {
       if (!this.game || !this.game.players) return false;

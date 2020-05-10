@@ -7,7 +7,7 @@
   >
     <v-col cols="12" md="6">
       <h2 class="display-1 base--text text-center" v-if="!game.validClues">
-        Wait for other players' clues
+        {{ t("Wait for other players' clues") }}
       </h2>
       <div v-else-if="game.validClues && !game.guess">
         <v-card-text>
@@ -55,7 +55,7 @@
         </v-card-text>
       </div>
       <h3 class="display-1 base--text text-center" v-else>
-        The other players are validating your guess
+        {{ t("The other players are validating your guess") }}
       </h3>
     </v-col>
     <v-progress-linear
@@ -85,18 +85,16 @@ export default {
   },
   locales: {
     pt_br: {
-      "the murderer": "o assassino",
-      "a detective": "um detetive",
-      "Your are": "Você é",
-      close: "fechar",
-      Role: "Papel",
-      "Pass turn": "Passar",
-      Solve: "Solucionar",
-      "Solve the crime": "Solucione o crime",
-      "Who is the murderer?": "Quem é o assassino?",
-      "Select the mean of murder:": "Selecione a causa de morte",
-      "Select the key evidence:": "Selecione a evidência principal",
-      "Send guess": "Mandar palpite"
+      "Wait for other players' clues":
+        "Espere pelas dicas dos outros jogadores",
+      "No clues were discarded": "Nenhuma pista descartada",
+      "One clue was discarded": "Uma pista descartada",
+      "clues were discarded": "pistas descartadas",
+      "Your guess": "Sua resposta",
+      Pass: "Passar",
+      "Send guess": "Enviar resposta",
+      "The other players are validating your guess":
+        "Os outros jogadores estão validando sua resposta"
     }
   },
   computed: {
@@ -113,13 +111,13 @@ export default {
       return this.game.clues.filter(item => item !== false);
     },
     discarded() {
-      const discarded = this.game.clues.length - this.game.validClues.length;
+      const discarded = this.clues.length - this.game.validClues.length;
       if (discarded === 0) {
-        return "No clues were discarded";
+        return this.t("No clues were discarded");
       } else if (discarded === 1) {
-        return "One clue was discarded";
+        return this.t("One clue was discarded");
       } else {
-        return `${discarded} clues were discarded`;
+        return `${discarded} ${this.t("clues were discarded")}`;
       }
     }
   },

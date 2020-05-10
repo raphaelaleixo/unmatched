@@ -3,10 +3,10 @@
     <v-row class="finished" style="height:100%" align="center" justify="center">
       <v-col cols="12" lg="4">
         <h2 class="display-2 base--text text-center mb-2">
-          The game wil start soon!
+          {{ t("The game will start soon!") }}
         </h2>
         <h3 class="display-1 white--text text-center mb-6">
-          Waiting for other players...
+          {{ t("Waiting for other players...") }}
         </h3>
       </v-col>
     </v-row>
@@ -21,7 +21,23 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    game: {
+      type: Object,
+      required: true
+    }
+  },
+  locales: {
+    pt_br: {
+      "The game will start soon!": "O jogo começará em breve!",
+      "Waiting for other players...": "Esperando por outros jogadores..."
+    }
+  },
+  mounted() {
+    this.$translate.setLang(this.game.lang);
+  }
+};
 </script>
 
 <style lang="scss" scoped>

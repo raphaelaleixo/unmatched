@@ -8,7 +8,9 @@
     <v-col cols="12" lg="4">
       <div>
         <v-card-text>
-          <div class="text-center white--text">The word to guess is</div>
+          <div class="text-center white--text">
+            {{ t("The word to guess is") }}
+          </div>
           <h2 class="display-2 white--text text-center mb-6">
             {{ game.words[game.round] }}
           </h2>
@@ -54,18 +56,9 @@ export default {
   },
   locales: {
     pt_br: {
-      "the murderer": "o assassino",
-      "a detective": "um detetive",
-      "Your are": "Você é",
-      close: "fechar",
-      Role: "Papel",
-      "Pass turn": "Passar",
-      Solve: "Solucionar",
-      "Solve the crime": "Solucione o crime",
-      "Who is the murderer?": "Quem é o assassino?",
-      "Select the mean of murder:": "Selecione a causa de morte",
-      "Select the key evidence:": "Selecione a evidência principal",
-      "Send guess": "Mandar palpite"
+      "The word to guess is": "A palavra para advinhar é",
+      "Your clue": "Sua dica",
+      "Send clue": "Enviar dica"
     }
   },
   computed: {

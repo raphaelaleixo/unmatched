@@ -84,7 +84,7 @@ export default {
       context.dispatch("checkValidAnswer", {
         game: payload.game,
         isValid: false,
-        message: "Word skipped!"
+        message: "pass"
       });
     }
   },
@@ -100,7 +100,7 @@ export default {
     let lostPoints = game.lostPoints || 0;
     await database.ref(`/${payload.game}`).update({
       lostPoints: lostPoints + 1,
-      message: "Word skipped!"
+      message: "pass"
     });
     context.dispatch("checkEndGame", payload);
   },
@@ -125,7 +125,7 @@ export default {
 
   async checkEndGame(context, payload) {
     const game = context.state.game;
-    if (game.points + game.lostPoints >= 2) {
+    if (game.points + game.lostPoints >= 13) {
       await database.ref(`/${payload.game}`).update({
         finished: true
       });

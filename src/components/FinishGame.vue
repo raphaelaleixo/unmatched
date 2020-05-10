@@ -6,7 +6,8 @@
           Game over!
         </h2>
         <h3 class="display-1 white--text text-center mb-6">
-          You guessed {{ game && game.points }} / 13 words!
+          {{ t("You guessed") }} {{ game && game.points }} / 13
+          {{ t("words") }}!
         </h3>
         <div class="d-flex flex-wrap justify-center mb-4">
           <v-btn
@@ -38,6 +39,14 @@ export default {
   props: {
     game: {
       type: Object
+    }
+  },
+  locales: {
+    pt_br: {
+      "You guessed": "Vocês acertaram",
+      words: "palavras",
+      "Join game": "Entrar num jogo",
+      "Play again": "Jogar novamente"
     }
   },
   methods: {
