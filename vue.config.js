@@ -1,12 +1,11 @@
 module.exports = {
-  transpileDependencies: ["vuetify"],
   pwa: {
-    name: "Krimi",
-    themeColor: "#FFFFFE",
-    msTileColor: "#FFFFFE",
+    name: "Unmatched",
+    themeColor: "#5f6c7b",
+    msTileColor: "#ffd803 ",
     appleMobileWebAppCapable: "yes",
     appleMobileWebAppStatusBarStyle: "white",
-    iconsPath: {
+    iconPaths: {
       favicon32: "./favicon-32x32.png",
       favicon16: "./favicon-16x16.png",
       appleTouchIcon: "./apple-touch-icon.png",
@@ -14,9 +13,34 @@ module.exports = {
       msTileImage: "./mstile-144x144.png"
     },
     workboxOptions: {
-      skipWaiting: true,
-      navigateFallback: "/index.html",
-      exclude: ".htaccess"
+      exclude: [/\.css.map$/, ".htaccess"]
+    },
+    manifestOptions: {
+      icons: [
+        {
+          src: "./android-chrome-192x192.png",
+          sizes: "192x192",
+          type: "image/png"
+        },
+        {
+          src: "./android-chrome-512x512.png",
+          sizes: "512x512",
+          type: "image/png"
+        },
+        {
+          src: "./android-chrome-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+          purpose: "maskable"
+        },
+        {
+          src: "./android-chrome-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable"
+        }
+      ]
     }
-  }
+  },
+  transpileDependencies: ["vuetify"]
 };
